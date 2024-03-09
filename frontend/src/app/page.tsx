@@ -1,6 +1,56 @@
-"use client"
-import { useState, ChangeEventHandler, FormEventHandler } from 'react';
+"use client";
+import {
+  useState,
+  ChangeEventHandler,
+  FormEventHandler,
+} from "react";
 
+function TextFormSection({
+  label,
+  id,
+  onChange,
+}: {
+  label: string;
+  id: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+}): JSX.Element {
+  return (
+    <>
+      <label className="label" htmlFor={id}>
+        {label}
+      </label>
+      <div>
+        <input id={id} type="text" required onChange={onChange} />
+      </div>
+    </>
+  );
+}
+
+function ImageFormSection({
+  label,
+  id,
+  onChange,
+}: {
+  label: string;
+  id: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+}): JSX.Element {
+  return (
+    <>
+      <label className="label" htmlFor={id}>
+        {label}
+      </label>
+      <div>
+        <input
+          id={id}
+          type="file"
+          accept="image/*,.png,.jpg,.jpeg,.gif"
+          onChange={onChange}
+        />
+      </div>
+    </>
+  );
+}
 
 export default function Home() {
   const [image1, setImage1] = useState<File | undefined>(undefined);
@@ -9,7 +59,7 @@ export default function Home() {
   const [section1, setSection1] = useState("");
   const [section2, setSection2] = useState("");
 
-  const getImage1: ChangeEventHandler<HTMLInputElement>  = (e) => {
+  const getImage1: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.target.files) return;
     const img = e.target.files[0];
     setImage1(img);
@@ -46,64 +96,39 @@ export default function Home() {
   return (
     <div>
       <form className="box" onSubmit={handleSubmit}>
-
-        <label className="label" htmlFor="title">
-          タイトル
-        </label>
-        <div>
-          <input
-            id="title"
-            type="text"
-            required
-            onChange={(e) => {setTitle(e.target.value)}}
-          />
-        </div>
+        <TextFormSection
+          label="タイトル"
+          id="title"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
         <br />
-        <label className="label" htmlFor="section1">
-          セクション1 
-        </label>
-        <div>
-          <input
-            id="section1"
-            type="text"
-            required
-            onChange={(e) => {setSection1(e.target.value)}}
-          />
-        </div>
-        <label className="label" htmlFor="img1">
-          画像1
-        </label>
-        <div>
-          <input
-            id="img1"
-            type="file"
-            accept="image/*,.png,.jpg,.jpeg,.gif"
-            onChange={getImage1}
-          />
-        </div>
+        <TextFormSection
+          label="セクション1"
+          id="section1"
+          onChange={(e) => {
+            setSection1(e.target.value);
+          }}
+        />
+        <ImageFormSection 
+          label="画像1"
+          id="img1"
+          onChange={getImage1}
+        />
         <br />
-        <label className="label" htmlFor="section2">
-          セクション2 
-        </label>
-        <div>
-          <input
-            id="section2"
-            type="text"
-            required
-            onChange={(e) => {setSection2(e.target.value)}}
-          />
-        </div>
-        <label className="label" htmlFor="img2">
-          画像2
-        </label>
-        <div>
-          <input
-            id="img2"
-            type="file"
-            accept="image/*,.png,.jpg,.jpeg,.gif"
-            onChange={getImage2}
-          />
-        </div>
+        <TextFormSection
+          label="セクション2"
+          id="section2"
+          onChange={(e) => {
+            setSection2(e.target.value);
+          }}
+        />
+        <ImageFormSection 
+          label="画像2"
+          id="img2"
+          onChange={getImage2}
+        />
         <br />
         <button className="button is-primary" type="submit">
           Submit
