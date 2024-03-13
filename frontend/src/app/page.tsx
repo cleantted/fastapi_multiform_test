@@ -73,10 +73,10 @@ export default function Home() {
   const Submit = async () => {
     const formdata = new FormData();
     if (image1 !== undefined) {
-      formdata.append("file1", image1);
+      formdata.append("files", image1);
     }
     if (image2 !== undefined) {
-      formdata.append("file2", image2);
+      formdata.append("files", image2);
     }
 
     formdata.append("title", title);

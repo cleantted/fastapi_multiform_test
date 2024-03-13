@@ -9,10 +9,10 @@ async def upload(
     title: str = Form(),
     section1: str = Form(),
     section2: str = Form(),
-    file1: UploadFile = Form(),
-    file2: UploadFile = Form(),
+    files: list[UploadFile] = Form(),
 ):
     try:
+        file1, file2 = files
         path1 = f"upload/{file1.filename}"
         path2 = f"upload/{file2.filename}"
 
